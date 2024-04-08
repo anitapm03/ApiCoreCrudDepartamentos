@@ -1,5 +1,6 @@
 using ApiCoreCrudDepartamentos.Data;
 using ApiCoreCrudDepartamentos.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
