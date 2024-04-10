@@ -36,13 +36,39 @@ namespace ApiCoreCrudDepartamentos.Controllers
         //guste algo, pudiendo devolver not fund, badrequest
 
         [HttpPost]
-        [Route("[action]/{id}/{nombre}/{loc}")]
-        public async Task<ActionResult> InsertDept
-            (int id, string nombre, string loc)
+        public async Task<ActionResult> PostDepartamento
+            (Departamento departamento)
         {
-            await this.repo.InsertDeptAsync(id, nombre, loc);
+            await this.repo.InsertDeptAsync(departamento.IdDepartamento
+                , departamento.Nombre, departamento.Localidad);
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            //PODEMOS PERSONALIZAR LA RESPUESTA
+            if (await this.repo.FindDepartamentoAsync(id) == null)
+            {
+                //NO EXISTE EL DEPARTAMENTO PARA ELIMINARLO
+                return NotFound();
+            }
+            else
+            {
+                await this.repo.DeleteDeptAsync(id);
+                return Ok();
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> PutDepartamento
+            (Departamento departamento)
+        {
+            await this.repo.UpdateDeptAsync(departamento.IdDepartamento
+                , departamento.Nombre, departamento.Localidad);
+            return Ok();
+        }
+
 
         //podemso tener todos los metodos de accion que queramos 
         //pero debemos personalizarlos con Route
